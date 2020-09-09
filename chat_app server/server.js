@@ -4,14 +4,21 @@ const http = require("http");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const {addUser, removeUser,getUser, getUsersInRoom} = require("./src/users")
+
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
 io.on('connection', (socket)=>{
-    console.log("we have a connection!!")
+    console.log("we have a new connection!!")
 
     // all codes will run here
+    socket.on('join', ({name,room})=>{
+        console.log(name,room)
+    })
+
+    
     socket.on('disconnect', ()=>{
         console.log('user has left!!')
     })
